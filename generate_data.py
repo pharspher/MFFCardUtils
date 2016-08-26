@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from GenerateCard import GenerateCard
-from ListCards import ListCards
-from Optimize import Optimize
-from RemoveCard import RemoveCard
+from Operation.GenerateCard import GenerateCard
+from Operation.ListCards import ListCards
+from Operation.Optimize import Optimize
+from Operation.RemoveCard import RemoveCard
 
 def printOptions():
     print()

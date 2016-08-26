@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from Operation import Operation
+from .Operation import Operation
+
 from Card import Card
 from Utils import read_card_data
 from Utils import save_card_data

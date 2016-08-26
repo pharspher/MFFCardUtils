@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from Operation import Operation
+from .Operation import Operation
+
 from itertools import combinations
 from Utils import read_card_data
 from Card import Card
