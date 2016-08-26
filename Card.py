@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
+
 class Card:
-    attributeIndex = [
+    attribute_names = [
         "attack_speed",
         "defense_ignore",
         "cooldown",
@@ -19,14 +20,14 @@ class Card:
         self.index = index
         self.cardName = "Card-" + str(self.index)
     
-    def print(self):
+    def print_attributes(self):
         for attribute in self.attributes.keys():
             print("{0:20}: {1}".format(attribute, self.attributes[attribute]))
             
-    def toVector(self):
+    def to_vector(self):
         vector = []
         
-        for attrName in self.attributeIndex:
+        for attrName in self.attribute_names:
             if attrName in self.attributes:
                 vector.append(float(self.attributes[attrName]))
                 

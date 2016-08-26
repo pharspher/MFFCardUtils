@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 
-from .Operation import Operation
+from utils import read_card_data
 
-from Utils import read_card_data
 
-class ListCards(Operation):
-    def run(self):
-        cardData = read_card_data()
-        
-        for card in cardData:
-            print("Card " + str(cardData.index(card)))
-            card.print()
-            print("--------------------------------")
+def list_cards():
+    card_data = read_card_data()
+
+    for card in card_data:
+        print("Card " + str(card_data.index(card)))
+        card.print_attributes()
+        print("--------------------------------")

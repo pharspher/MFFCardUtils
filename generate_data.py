@@ -1,30 +1,38 @@
 #!/usr/bin/env python3
 
-from Operation.GenerateCard import GenerateCard
-from Operation.ListCards import ListCards
-from Operation.Optimize import Optimize
-from Operation.RemoveCard import RemoveCard
+from Operation.GenerateCard import generate_card
+from Operation.ListCards import list_cards
+from Operation.Optimize import optimize
+from Operation.RemoveCard import remove_card
 
-def printOptions():
+
+command_operations = {
+    "a": generate_card,
+    "l": list_cards,
+    "o": optimize,
+    "r": remove_card
+}
+
+
+def print_options():
     print()
-    for key in commandOperations.keys():
-        print(key + ": " + commandOperations[key].__class__.__name__)
+    for key in command_operations.keys():
+        print(str(key) + ": " + str(command_operations[key].__name__))
 
-commandOperations = {"a": GenerateCard(), "l": ListCards(), "o": Optimize(5), "r": RemoveCard()}
 
 done = False
 
-while (done == False):
-    printOptions()
-    inputCommand = input("what do you want: ").strip()
+while not done:
+    print_options()
+    input_command = input("what do you want: ").strip()
     
-    if (inputCommand == "q"):
+    if input_command == "q":
         print("Thank you, bye!")
         done = True
         
-    elif commandOperations.__contains__(inputCommand):
+    elif command_operations.__contains__(input_command):
         print()
-        commandOperations.get(inputCommand).run()
+        command_operations.get(input_command)()
         
     else:
         print("command not found\n")

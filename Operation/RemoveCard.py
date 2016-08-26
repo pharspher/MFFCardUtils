@@ -1,22 +1,44 @@
 #!/usr/bin/env python3
 
-from .Operation import Operation
+from utils import read_card_data
+from utils import save_card_data
 
-from Utils import read_card_data
-from Utils import save_card_data
 
-class RemoveCard(Operation):
-    def run(self):
-        cardData = read_card_data()
-        
-        cardIndex = int(input("Card index: "))
-        
-        card = cardData[cardIndex]
-        print("Card-" + str(card.index))
-        card.print()
-        
-        answer = input("remove[y, n]? ")
-        
-        if answer == "y":
-            del cardData[cardIndex]
-            save_card_data(cardData)
+def remove_card():
+    card_data = read_card_data()
+
+    input_index = input("Card index: ")
+
+    if not is_int(input_index):
+        print("invalid input")
+        return
+
+    card_index = int(input_index)
+
+    if card_index >= len(card_data):
+        print("card index out of range")
+        return
+
+    card = card_data[card_index]
+    print("===========================")
+    print("Card: " + str(card.index))
+    print("---------------------------")
+    card.print_attributes()
+    print("===========================")
+
+    answer = input("remove[y, n]? ")
+
+    if answer == "y":
+        print("remove card " + str(card_index))
+        del card_data[card_index]
+        save_card_data(card_data)
+    else:
+        print("remove abort")
+
+
+def is_int(string):
+    try:
+        int(string)
+        return True
+    except ValueError:
+        return False

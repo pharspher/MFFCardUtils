@@ -1,42 +1,41 @@
 #!/usr/bin/env python3
 
-from .Operation import Operation
-
 from Card import Card
-from Utils import read_card_data
-from Utils import save_card_data
+from utils import read_card_data
+from utils import save_card_data
 
-class GenerateCard(Operation):
-    def run(self):
-        done = False
-        
-        cardData = read_card_data()
-        
-        card = Card(len(cardData))
-        
-        while done == False:
-            self.printOptions()
-            inputAttr = input("attribute: ")
-            
-            if len(inputAttr.strip()) == 0:
-                done = True
-                continue
-            
-            inputValue = input("value: ")
-            card.attributes[Card.attributeIndex[int(inputAttr)]] = inputValue
-            
-        if len(card.attributes.keys()) == 0:
-            print("no attribute set, cancel")
-            
-        else:
-            card.print()
-            cardData.append(card)
-            save_card_data(cardData)
-            
-    def printOptions(self):
-        print()
-        hint = ""
-        for attribute in Card.attributeIndex:
-            index = Card.attributeIndex.index(attribute)
-            hint = hint + str(index) + ". " + attribute + "\n"
-        print(hint)
+
+def print_options():
+    print()
+    hint = ""
+    for attribute in Card.attribute_names:
+        index = Card.attribute_names.index(attribute)
+        hint = hint + str(index) + ". " + attribute + "\n"
+    print(hint)
+
+
+def generate_card():
+    done = False
+
+    card_data = read_card_data()
+
+    card = Card(len(card_data))
+
+    while not done:
+        print_options()
+        input_attr = input("attribute: ")
+
+        if len(input_attr.strip()) == 0:
+            done = True
+            continue
+
+        input_value = input("value: ")
+        card.attributes[Card.attribute_names[int(input_attr)]] = input_value
+
+    if len(card.attributes.keys()) == 0:
+        print("no attribute set, cancel")
+
+    else:
+        card.print_attributes()
+        card_data.append(card)
+        save_card_data(card_data)
