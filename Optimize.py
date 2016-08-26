@@ -27,6 +27,8 @@ class Optimize(Operation):
             
         print("number of card combination: " + str(len(cardSetList)))
         
+        print("============================")
+        
         for cardSet in cardSetList:
             vector = self.sumVectors(cardSet)
             cooldownIndex = Card.attributeIndex.index("cooldown")
@@ -40,14 +42,15 @@ class Optimize(Operation):
                 continue
             
             if vector[ignoreIndex] < 5:
-                continue
+                continue    
             
-            print("\n")
-            cardComb = ""
+            cardList = ""
             for card in cardSet:
-                cardComb = cardComb + str(card.index) + ", "
-            print("comb: " + cardComb)
+                cardList = cardList + str(card.index) + ", "
+            print("Cards: [" + cardList + "]")
+            print("----------------------------")
             self.printAttribute(vector)
+            print("============================")
     
     def vectorSet(self, cardSet):
         vectorSet = []

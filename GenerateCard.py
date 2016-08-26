@@ -14,7 +14,7 @@ class GenerateCard(Operation):
         card = Card(len(cardData))
         
         while done == False:
-            self.printHint()
+            self.printOptions()
             inputAttr = input("attribute: ")
             
             if len(inputAttr.strip()) == 0:
@@ -24,11 +24,16 @@ class GenerateCard(Operation):
             inputValue = input("value: ")
             card.attributes[Card.attributeIndex[int(inputAttr)]] = inputValue
             
-        card.print()
-        cardData.append(card)
-        save_card_data(cardData)
+        if len(card.attributes.keys()) == 0:
+            print("no attribute set, cancel")
             
-    def printHint(self):
+        else:
+            card.print()
+            cardData.append(card)
+            save_card_data(cardData)
+            
+    def printOptions(self):
+        print()
         hint = ""
         for attribute in Card.attributeIndex:
             index = Card.attributeIndex.index(attribute)

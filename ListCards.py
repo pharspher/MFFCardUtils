@@ -8,6 +8,6 @@ class ListCards(Operation):
         cardData = read_card_data()
         
         for card in cardData:
-            print("Card " + str(cardData.index(card)) + ": " + str(card.toVector()))
+            print("Card " + str(cardData.index(card)))
             card.print()
-            print("\n")
+            print("--------------------------------")
