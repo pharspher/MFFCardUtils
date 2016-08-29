@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from itertools import combinations
-from IOUtils import read_card_data
+from IOUtils import read_card_data, read_exclusive_group
 from Card import Card
 from Utils import get_card_vector
 
@@ -52,6 +52,42 @@ def print_attribute(vector):
         print("{0:20}: {1:6.2f}".format(attribute, vector[index]))
 
 
+def compare_card_set(card_set1, card_set2):
+    sum1 = sum_card_set_vectors(card_set1)
+    sum2 = sum_card_set_vectors(card_set2)
+    
+    for attriute_name in Card.attribute_names:
+        index = Card.attribute_names.index(attriute_name)
+        
+        value1 = sum1[index]
+        value2 = sum2[index]
+        relation = " "
+        if value1 > value2:
+            relation = "v"
+        elif value2 > value1:
+            relation = "^"
+        
+        print(("{0:20}: {1:6.2f} " + relation + " {2:6.2f}").format(attriute_name, sum1[index], sum2[index]))
+    
+
+def compare_with_current_card_set(card_set):
+    cards = read_card_data()
+    compare_card_set([cards[0], cards[1], cards[2], cards[3], cards[4]], card_set)
+
+
+def contain_exclusive_card(card_set):
+    ex_groups = read_exclusive_group()
+    
+    for group in ex_groups:
+        count = 0
+        for card in card_set:
+            if group.__contains__(card.index):
+                count += 1
+                if count >= 2:
+                    return True
+    return False
+
+
 def optimize():
     cards = read_card_data()
     card_set_combinations = get_card_set_combination(cards)
@@ -76,11 +112,18 @@ def optimize():
         if sum_vector[ignore_index] < 5:
             continue
 
+        if contain_exclusive_card(card_set):
+            continue
+
         card_list = ""
-        for card in card_set:
-            card_list = card_list + str(card.index) + ", "
+        for i in range(len(card_set)):
+            if i == 0:
+                card_list += str(card_set[i].index)
+            else:
+                card_list += ", " + str(card_set[i].index)
 
         print("Cards: [" + card_list + "]")
         print("----------------------------")
-        print_attribute(sum_vector)
+        #print_attribute(sum_vector)
+        compare_with_current_card_set(card_set)
         print("============================")

@@ -40,3 +40,20 @@ def save_card_data(card_data, file_name="cards_data"):
                 print(attribute + ": " + card.attributes[attribute], file=fd)
 
             print("\n", file=fd)
+
+
+def read_exclusive_group():
+    with open("exclusive_data", "r") as fd:
+        lines = fd.readlines()
+    
+    groups = []
+    
+    for raw_line in lines:
+        line = raw_line.strip()
+        split_line = line.split(" ")
+        group = []
+        for i in range(len(split_line)):
+            group.append(int(split_line[i]))
+        groups.append(group)
+        
+    return groups

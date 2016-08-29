@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from IOUtils import read_card_data, save_card_data
-from Utils import print_card
+from Utils import print_card, is_int
 
 
 def remove_card():
@@ -34,11 +34,3 @@ def remove_card():
         save_card_data(card_data)
     else:
         print("remove abort")
-
-
-def is_int(string):
-    try:
-        int(string)
-        return True
-    except ValueError:
-        return False

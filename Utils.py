@@ -25,3 +25,11 @@ def get_card_vector(card):
             vector.append(0)
 
     return vector
+
+
+def is_int(string):
+    try:
+        int(string)
+        return True
+    except ValueError:
+        return False

@@ -10,7 +10,7 @@ command_operations = {
     "a": generate_card,
     "l": list_cards,
     "o": optimize,
-    "r": remove_card
+    "r": remove_card,
 }
 
 
