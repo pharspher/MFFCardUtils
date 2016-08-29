@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 from Card import Card
-from utils import read_card_data
-from utils import save_card_data
+from IOUtils import read_card_data, save_card_data
+from Utils import print_card
 
 
 def print_options():
@@ -36,6 +36,6 @@ def generate_card():
         print("no attribute set, cancel")
 
     else:
-        card.print_attributes()
+        print_card(card)
         card_data.append(card)
         save_card_data(card_data)

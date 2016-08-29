@@ -1,19 +1,19 @@
 #card
-cooldown: 5.4
 recovery_rate: 7
+cooldown: 5.4
 
 
 #card
 dodge: 5.1
-physical_attack: 6
-movement_speed: 5.4
 critical_rate: 9.5
+movement_speed: 5.4
+physical_attack: 6
 
 
 #card
 dodge: 8.5
-cooldown: 8.5
 movement_speed: 5.7
+cooldown: 8.5
 
 
 #card
@@ -22,15 +22,15 @@ all_attack: 7.5
 
 
 #card
-cooldown: 8.5
-all_attack: 8.5
 attack_speed: 5.4
+all_attack: 8.5
+cooldown: 8.5
 
 
 #card
+attack_speed: 5.4
 recovery_rate: 6.5
 physical_attack: 6.5
-attack_speed: 5.4
 
 
 #card
@@ -40,14 +40,14 @@ defense_ignore: 5.1
 
 #card
 critical_rate: 7.5
-recovery_rate: 5.7
 movement_speed: 5.4
+recovery_rate: 5.7
 critical_damage: 5.1
 
 
 #card
-energy_attack: 5.1
 dodge: 5.7
+energy_attack: 5.1
 recovery_rate: 7.5
 
 
@@ -63,9 +63,9 @@ critical_damage: 8
 
 
 #card
-recovery_rate: 8
 critical_rate: 8
 attack_speed: 5.4
+recovery_rate: 8
 
 
 #card
@@ -75,13 +75,13 @@ all_attack: 8
 
 #card
 dodge: 5.1
-cooldown: 8
 attack_speed: 5.4
+cooldown: 8
 
 
 #card
-movement_speed: 5.4
 attack_speed: 8
+movement_speed: 5.4
 
 
 #card
@@ -90,19 +90,19 @@ critical_rate: 5.4
 
 
 #card
-critical_damage: 5.1
 attack_speed: 8.5
+critical_damage: 5.1
 
 
 #card
-critical_damage: 5.7
-all_attack: 8.5
 attack_speed: 5.4
+all_attack: 8.5
+critical_damage: 5.7
 
 
 #card
+movement_speed: 5.4
 recovery_rate: 9
 critical_damage: 5.1
-movement_speed: 5.4
 
 

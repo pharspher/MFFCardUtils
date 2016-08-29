@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from utils import read_card_data
+from IOUtils import read_card_data
+from Utils import print_card
 
 
 def list_cards():
@@ -8,5 +9,6 @@ def list_cards():
 
     for card in card_data:
         print("Card " + str(card_data.index(card)))
-        card.print_attributes()
+
+        print_card(card)
         print("--------------------------------")

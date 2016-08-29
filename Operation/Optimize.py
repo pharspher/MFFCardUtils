@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 
 from itertools import combinations
-from utils import read_card_data
+from IOUtils import read_card_data
 from Card import Card
+from Utils import get_card_vector
 
 
-def get_vector_set(card_set):
+def get_vector_set(cards):
     result_set = []
-    for card in card_set:
-        result_set.append(card.to_vector())
+    for card in cards:
+        result_set.append(get_card_vector(card))
 
     return result_set
 
 
-def sum_vectors(card_set):
+def sum_card_set_vectors(card_set):
     vectors = get_vector_set(card_set)
 
     sum_vector = []
@@ -28,6 +29,21 @@ def sum_vectors(card_set):
     return sum_vector
 
 
+def get_card_set_combination(cards):
+    card_set_list = []
+    index_combs = combinations(range(len(get_vector_set(cards))), 5)
+
+    for index_comb in index_combs:
+        card_set = []
+
+        for index in index_comb:
+            card_set.append(cards[index])
+
+        card_set_list.append(card_set)
+
+    return card_set_list
+
+
 def print_attribute(vector):
     for attribute in Card.attribute_names:
         index = Card.attribute_names.index(attribute)
@@ -38,38 +54,26 @@ def print_attribute(vector):
 
 def optimize():
     cards = read_card_data()
+    card_set_combinations = get_card_set_combination(cards)
 
-    vectors = []
-    for card in cards:
-        vectors.append(card.to_vector())
-
-    card_set_list = []
-    index_combs = combinations(range(len(vectors)), 5)
-
-    for index_comb in index_combs:
-        card_set = []
-        for index in index_comb:
-            card_set.append(cards[index])
-
-        card_set_list.append(card_set)
-
-    print("number of card combination: " + str(len(card_set_list)))
+    print("number of card combination: " + str(len(card_set_combinations)))
 
     print("============================")
 
-    for card_set in card_set_list:
-        vector = sum_vectors(card_set)
+    for card_set in card_set_combinations:
+        sum_vector = sum_card_set_vectors(card_set)
+
         cooldown_index = Card.attribute_names.index("cooldown")
         all_attack_index = Card.attribute_names.index("all_attack")
         ignore_index = Card.attribute_names.index("defense_ignore")
 
-        if vector[cooldown_index] < 25:
+        if sum_vector[cooldown_index] < 25:
             continue
 
-        if vector[all_attack_index] < 20:
+        if sum_vector[all_attack_index] < 20:
             continue
 
-        if vector[ignore_index] < 5:
+        if sum_vector[ignore_index] < 5:
             continue
 
         card_list = ""
@@ -78,5 +82,5 @@ def optimize():
 
         print("Cards: [" + card_list + "]")
         print("----------------------------")
-        print_attribute(vector)
+        print_attribute(sum_vector)
         print("============================")

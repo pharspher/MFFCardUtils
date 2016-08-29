@@ -19,19 +19,4 @@ class Card:
         self.attributes = {}
         self.index = index
         self.cardName = "Card-" + str(self.index)
-    
-    def print_attributes(self):
-        for attribute in self.attributes.keys():
-            print("{0:20}: {1}".format(attribute, self.attributes[attribute]))
-            
-    def to_vector(self):
-        vector = []
-        
-        for attrName in self.attribute_names:
-            if attrName in self.attributes:
-                vector.append(float(self.attributes[attrName]))
-                
-            else:
-                vector.append(0)
-                
-        return vector
+

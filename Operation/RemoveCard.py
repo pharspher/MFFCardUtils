@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from utils import read_card_data
-from utils import save_card_data
+from IOUtils import read_card_data, save_card_data
+from Utils import print_card
 
 
 def remove_card():
@@ -23,7 +23,7 @@ def remove_card():
     print("===========================")
     print("Card: " + str(card.index))
     print("---------------------------")
-    card.print_attributes()
+    print_card(card)
     print("===========================")
 
     answer = input("remove[y, n]? ")

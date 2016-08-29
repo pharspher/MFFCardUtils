@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
+from __future__ import print_function
 from Card import Card
 
 
-def read_card_data(file_name = "cards_data"):
-    with open(file_name) as file:
-        lines = file.readlines()
+def read_card_data(file_name="cards_data"):
+    with open(file_name) as fd:
+        lines = fd.readlines()
 
     card_list = []
 
@@ -30,20 +31,12 @@ def read_card_data(file_name = "cards_data"):
     return card_list
 
 
-def save_card_data(card_data, file_name = "cards_data"):
-    with open(file_name, "w") as file:
+def save_card_data(card_data, file_name="cards_data"):
+    with open(file_name, "w") as fd:
         for card in card_data:
-            print("#card", file)
+            print("#card", file=fd)
 
             for attribute in card.attributes.keys():
-                print(attribute + ": " + card.attributes[attribute], file)
+                print(attribute + ": " + card.attributes[attribute], file=fd)
 
-            print("\n", file)
-
-
-def print_vector(vector):
-    vector_string = "["
-    for dimension_value in vector:
-        vector_string += "{0:6.2f}".format(dimension_value) + ", "
-    vector_string += "]"
-    print(vector_string)
+            print("\n", file=fd)
