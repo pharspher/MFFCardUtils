@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from IOUtils import read_card_data, save_card_data
-from Utils import print_card, is_int
+from Utils import *
 
 
 def remove_card():
@@ -10,27 +10,28 @@ def remove_card():
     input_index = input("Card index: ")
 
     if not is_int(input_index):
-        print("invalid input")
+        print_warn("invalid input")
         return
 
     card_index = int(input_index)
 
     if card_index >= len(card_data):
-        print("card index out of range")
+        print_warn("card index out of range")
         return
 
     card = card_data[card_index]
-    print("===========================")
-    print("Card: " + str(card.index))
-    print("---------------------------")
+    
+    print(content("==========================="))
+    print(content("Card: " + str(card.index)))
+    print(content("---------------------------"))
     print_card(card)
-    print("===========================")
+    print(content("==========================="))
 
-    answer = input("remove[y, n]? ")
+    answer = input(warn("remove[y, n]? "))
 
     if answer == "y":
-        print("remove card " + str(card_index))
+        print_done("remove card " + str(card_index))
         del card_data[card_index]
         save_card_data(card_data)
     else:
-        print("remove abort")
+        print_done("remove abort")

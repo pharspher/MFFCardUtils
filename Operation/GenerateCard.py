@@ -2,16 +2,17 @@
 
 from Card import Card
 from IOUtils import read_card_data, save_card_data
-from Utils import print_card, is_int
+from Utils import *
 
 
 def print_options():
     print()
-    hint = ""
+    seperate()
+    options = ""
     for attribute in Card.attribute_names:
         index = Card.attribute_names.index(attribute)
-        hint = hint + str(index) + ". " + attribute + "\n"
-    print(hint)
+        options += (str(index) + ". " + attribute + "\n")
+    print(hint(options))
 
 
 def find_attribute(input_attribute, input_value):
@@ -24,18 +25,18 @@ def find_attribute(input_attribute, input_value):
     if len(find_result) == 1:
         return find_result[0]
         
-    print("ambiguous: " + input_attribute + " " + str(input_value))
+    print_warn("ambiguous: " + input_attribute + " " + str(input_value))
         
     option_string = ""    
     for i in range(len(find_result)):
         option_string += (str(i + 1) + ". " + find_result[i] + ", ")
     
-    print(option_string)
+    print(hint(option_string))
     
     done = False
     
     while not done:
-        user_input = input("which one do you mean: ")
+        user_input = input(prompt("which one do you mean: "))
         if not is_int(user_input):
             continue
         
@@ -46,16 +47,15 @@ def find_attribute(input_attribute, input_value):
         return find_result[input_int - 1]
 
 
-def generate_card():
+def create_new_card():
     done = False
 
     card_data = read_card_data()
-
     card = Card(len(card_data))
 
     while not done:
         print_options()
-        input_line = input("enter \"attr value\": ")
+        input_line = input(prompt("enter \"attr value\": "))
         
         if len(input_line.strip()) == 0:
             done = True
@@ -76,9 +76,18 @@ def generate_card():
             card.attributes[find_attribute(attr, value)] = value
 
     if len(card.attributes.keys()) == 0:
-        print("no attribute set, cancel")
+        print_warn("no attribute set, cancel")
+        return None
 
     else:
         print_card(card)
+        return card
+
+
+def generate_card():
+    card_data = read_card_data()
+    card = create_new_card()
+    
+    if card != None:
         card_data.append(card)
         save_card_data(card_data)

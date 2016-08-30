@@ -2,7 +2,8 @@
 
 from Card import Card
 from IOUtils import read_card_data, save_card_data
-from Utils import print_card, is_int
+from Utils import print_card, is_int, get_input, print_warn
+from Operation.GenerateCard import create_new_card
 
 
 def print_options():
@@ -46,39 +47,23 @@ def find_attribute(input_attribute, input_value):
         return find_result[input_int - 1]
 
 
-def generate_card():
-    done = False
+def verify_index(input_index):
+    return is_int(input_index)
 
+
+def insert_card():
+    card = create_new_card()
+    
+    if card == None:
+        return
+    
+    index = int(get_input("insert at index: ", verify_index))
+    
     card_data = read_card_data()
-
-    card = Card(len(card_data))
-
-    while not done:
-        print_options()
-        input_line = input("enter \"attr value\": ")
-        
-        if len(input_line.strip()) == 0:
-            done = True
-            continue
-        
-        split_line = input_line.split(" ")
-        
-        length = len(split_line)
-        
-        if length == 0 or length % 2 != 0:
-            done = True
-            continue
-        
-        for i in range(0, len(split_line) - 1, 2):
-            attr = split_line[i].strip()
-            value = split_line[i + 1].strip()
-        
-            card.attributes[find_attribute(attr, value)] = value
-
-    if len(card.attributes.keys()) == 0:
-        print("no attribute set, cancel")
-
-    else:
-        print_card(card)
-        card_data.append(card)
+    
+    if index <= len(card_data):
+        card_data.insert(index, card)
         save_card_data(card_data)
+    else:
+        print_warn("invalid index, cancel!")
+
