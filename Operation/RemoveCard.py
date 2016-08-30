@@ -4,19 +4,23 @@ from IOUtils import read_card_data, save_card_data
 from Utils import *
 
 
+def verify_input_index(input_index):
+    result = is_int(input_index)
+    if not result:
+        print_warn("invalid input")
+        
+    return result
+
+
 def remove_card():
     card_data = read_card_data()
 
-    input_index = input("Card index: ")
-
-    if not is_int(input_index):
-        print_warn("invalid input")
-        return
+    input_index = get_input(prompt("Card index: "), verify_input_index)
 
     card_index = int(input_index)
-
+    
     if card_index >= len(card_data):
-        print_warn("card index out of range")
+        print_warn("card index out of range, abort!")
         return
 
     card = card_data[card_index]
