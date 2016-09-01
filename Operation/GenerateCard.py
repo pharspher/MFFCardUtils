@@ -2,6 +2,7 @@
 
 from Card import Card
 from IOUtils import read_card_data, save_card_data
+from Operation.Utils import *
 from Utils import *
 
 
@@ -13,38 +14,6 @@ def print_options():
         index = Card.attribute_names.index(attribute)
         options += (str(index) + ". " + attribute + "\n")
     print(hint(options))
-
-
-def find_attribute(input_attribute, input_value):
-    find_result = []
-    
-    for attribute_name in Card.attribute_names:
-        if attribute_name.startswith(input_attribute):
-            find_result.append(attribute_name)
-    
-    if len(find_result) == 1:
-        return find_result[0]
-        
-    print_warn("ambiguous: " + input_attribute + " " + str(input_value))
-        
-    option_string = ""    
-    for i in range(len(find_result)):
-        option_string += (str(i + 1) + ". " + find_result[i] + ", ")
-    
-    print(hint(option_string))
-    
-    done = False
-    
-    while not done:
-        user_input = input(prompt("which one do you mean: "))
-        if not is_int(user_input):
-            continue
-        
-        input_int = int(user_input)
-        if input_int - 1 >= len(find_result):
-            continue
-        
-        return find_result[input_int - 1]
 
 
 def create_new_card():
@@ -73,7 +42,10 @@ def create_new_card():
             attr = split_line[i].strip()
             value = split_line[i + 1].strip()
         
-            card.attributes[find_attribute(attr, value)] = value
+            resolved_attribute_name = resolve_attribute_name(attr, value)
+            if resolved_attribute_name == None:
+                continue
+            card.attributes[resolved_attribute_name] = value
 
     if len(card.attributes.keys()) == 0:
         print_warn("no attribute set, cancel")

@@ -5,6 +5,7 @@ from Operation.ListCards import list_cards
 from Operation.Optimize import optimize
 from Operation.RemoveCard import remove_card
 from Operation.InsertCard import insert_card
+from Operation.FilterWithCondition import filter_with_condition
 from Utils import *
 
 
@@ -13,7 +14,8 @@ command_operations = {
     "l": list_cards,
     "o": optimize,
     "r": remove_card,
-    "i": insert_card
+    "i": insert_card,
+    "f": filter_with_condition
 }
 
 

@@ -2,6 +2,8 @@
 
 from __future__ import print_function
 from Card import Card
+from Operation.Utils import *
+from Utils import *
 
 
 def read_card_data(file_name="cards_data"):
@@ -26,7 +28,10 @@ def read_card_data(file_name="cards_data"):
             if len(attribute) != 2:
                 continue
             else:
-                card_list[-1].attributes[attribute[0].strip()] = attribute[1].strip()
+                resolved_attribute_name = resolve_attribute_name(attribute[0].strip(), attribute[1].strip(), False)
+                if resolved_attribute_name == None:
+                    print_warn("invalid card data")
+                card_list[-1].attributes[resolved_attribute_name] = attribute[1].strip()
 
     return card_list
 

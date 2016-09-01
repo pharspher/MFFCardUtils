@@ -3,17 +3,22 @@
 
 class Card:
     attribute_names = [
-        "attack_speed",
-        "defense_ignore",
         "cooldown",
         "all_attack",
         "physical_attack",
         "energy_attack",
-        "movement_speed",
+        "defense_ignore",
+        "attack_speed",
         "critical_rate",
         "critical_damage",
+        "movement_speed",
         "dodge",
-        "recovery_rate"]
+        "recovery_rate",
+        "cc_time",
+        "phy_def",
+        "ene_def",
+        "all_def",
+        "hp"]
     
     def __init__(self, index):
         self.attributes = {}

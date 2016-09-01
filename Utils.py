@@ -16,22 +16,17 @@ def print_vector(vector):
     print(content(vector_string))
 
 
-def get_card_vector(card):
-    vector = []
-
-    for attrName in card.attribute_names:
-        if attrName in card.attributes:
-            vector.append(float(card.attributes[attrName]))
-
-        else:
-            vector.append(0)
-
-    return vector
-
-
 def is_int(string):
     try:
         int(string)
+        return True
+    except ValueError:
+        return False
+    
+    
+def is_number(string):
+    try:
+        float(string)
         return True
     except ValueError:
         return False
@@ -46,6 +41,7 @@ def get_input(prompt, condition):
             return user_input
         else:
             continue
+
 
 def highlight(message):
     return Fore.YELLOW + message + Style.RESET_ALL
@@ -69,7 +65,8 @@ def prompt(message):
 
 def content(message):
     return Style.BRIGHT + message + Style.RESET_ALL
-        
+
+
 def print_warn(message):
     print(warn(message))
     
