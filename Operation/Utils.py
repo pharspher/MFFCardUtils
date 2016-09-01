@@ -63,15 +63,20 @@ def compare_card_set(card_set1, card_set2):
         value1 = sum1[index]
         value2 = sum2[index]
         
+        thresh = 5.0
+        
         color = Style.RESET_ALL
-        if value1 > value2:
+        if value1 - value2 >= thresh:
             color = Fore.RED
-        elif value2 > value1:
+        elif value2 - value1 >= thresh:
             color = Fore.GREEN
         
         difference = value2 - value1
         
-        print(("{0:20}: {1:6.2f}  -> " + color + "{2:6.2f} ({3:6.2f})" + Style.RESET_ALL).format(attribute_name, sum1[index], sum2[index], difference))
+        highlight_difference = Style.BRIGHT if abs(difference) >= thresh else Style.DIM
+        
+        
+        print((highlight_difference + "{0:20}: {1:6.2f}  -> " + color + "{2:6.2f} ({3:6.2f})" + Style.RESET_ALL).format(attribute_name, sum1[index], sum2[index], difference))
     
 
 def compare_with_current_card_set(card_set):

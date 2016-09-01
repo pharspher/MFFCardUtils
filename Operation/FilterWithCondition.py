@@ -5,6 +5,7 @@ from Card import Card
 from IOUtils import read_card_data, save_card_data
 from Utils import *
 from colorama import Style
+import collections
 import curses
 
 
@@ -14,7 +15,7 @@ def parse_condition(input_condition):
     if len(split_input) == 0:
         return {}
     
-    conditions = {}
+    conditions = collections.OrderedDict()
     
     done = False
     index = 0
@@ -40,29 +41,6 @@ def parse_condition(input_condition):
         index += 2
     
     return conditions
-
-
-def _find_getch():
-    try:
-        import termios
-    except ImportError:
-        # Non-POSIX. Return msvcrt's (Windows') getch.
-        import msvcrt
-        return msvcrt.getch
-
-    # POSIX system. Create and return a getch that manipulates the tty.
-    import sys, tty
-    def _getch():
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
-        try:
-            tty.setraw(fd)
-            ch = sys.stdin.read(1)
-        finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-        return ch
-
-    return _getch
 
 
 def match_conditions(card_set, conditions):
@@ -102,6 +80,10 @@ def print_max(conditions, card_set_combinations):
         print(Style.BRIGHT + hint("{0:20}: {1}".format(attribute, max_value)))
 
 
+def find_best_card_set_with_conditions(card_sets, conditions):
+    return {}
+
+
 def filter_with_condition():
     done = False
     
@@ -132,6 +114,7 @@ def filter_with_condition():
     
         print("============================")
     
+        match_card_set = []
         match_count = 0
         for card_set in card_set_combinations:
             if not match_conditions(card_set, conditions):
@@ -151,7 +134,10 @@ def filter_with_condition():
             print("----------------------------")
             compare_with_current_card_set(card_set)
             print("============================")
+            match_card_set.append(card_set)
             match_count += 1
             
         print_done("matched result: " + str(match_count))
+        
+        best_card_set = find_best_card_set_with_conditions(match_card_set, conditions)
 
